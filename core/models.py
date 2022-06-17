@@ -1,10 +1,6 @@
-from operator import mod
-from turtle import title
 from django.db import models
 
-# Create your models here.
 
-
-class Blog (models.Model):
+class Blog(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()

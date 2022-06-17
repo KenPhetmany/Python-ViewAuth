@@ -7,7 +7,7 @@ from core.models import Blog
 
 def listing(request):
     data = {
-        "blogs": Blog.object.all()
+        "blogs": Blog.objects.all(),
     }
 
     return render(request, "listing.html", data)
