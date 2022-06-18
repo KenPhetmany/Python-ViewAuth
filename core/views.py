@@ -1,6 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from core.models import Blog
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def private_place(request):
+    return HttpResponse("Members only!", content_type="text/plain")
 
 # Does a query looking for all Blog objects
 
@@ -23,6 +29,8 @@ def view_blog(request, blog_id):
 
     return render(request, "view_blog.html", data)
 
+# Shows the HttpRequest attributes
+
 
 def see_request(request):
     text = f""" 
@@ -35,6 +43,8 @@ def see_request(request):
         user: {request.user}    """
 
     return HttpResponse(text, content_type="text/plain")
+
+# See the attribute information of the current user
 
 
 def user_info(request):
@@ -50,5 +60,4 @@ def user_info(request):
         is_active: {request.user.is_active}        
         
     """
-
     return HttpResponse(text, content_type="text/plain")
