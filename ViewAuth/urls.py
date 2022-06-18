@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", core_views.listing, name="listing"),
     path("view_blog/<int:blog_id>", core_views.view_blog, name="view_blog"),
+    path("see_request/", core_views.see_request),
+    path("user_info/", core_views.user_info),
 ]
