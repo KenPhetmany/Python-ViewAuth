@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from core.models import Blog
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 @login_required
@@ -61,3 +61,10 @@ def user_info(request):
         
     """
     return HttpResponse(text, content_type="text/plain")
+
+# Checks if the user is a staff user.
+
+
+@user_passes_test(lambda user: user.is_staff)
+def staff_place(request):
+    return HttpResponse("Employees must wash hands", content_type="text/plain")
