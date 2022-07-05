@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from core.models import Blog
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
@@ -62,9 +63,20 @@ def user_info(request):
     """
     return HttpResponse(text, content_type="text/plain")
 
-# Checks if the user is a staff user.
+# Checks if the user is a staff user or superuser.
 
 
 @user_passes_test(lambda user: user.is_staff)
 def staff_place(request):
     return HttpResponse("Employees must wash hands", content_type="text/plain")
+
+# Create asynchronous communication with the user. Used for notifying the user
+
+
+@login_required
+def add_messages(request):
+    username = request.user.username
+    messages.add_message(request, messages.INFO, f"Hello: {username}")
+    messages.add_message(request, messages.WARNING, "SDAOKGJSADFLKJALSK'")
+
+    return HttpResponse("Messages added, go back to root website", content_type="text/plain")
